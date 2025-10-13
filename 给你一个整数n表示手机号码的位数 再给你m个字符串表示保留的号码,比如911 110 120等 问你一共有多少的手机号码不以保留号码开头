@@ -1,0 +1,47 @@
+#include<iostream>
+#include<cmath>
+#include<cstring>
+#include<vector>
+using namespace std;
+int main()
+{
+    long long number=1,count=0;
+    int m,n;
+    vector<string> ncons;
+    string cons[50];
+    cin>>n>>m;
+    for(int i=0;i<m;i++)
+    {
+        cin>>cons[i];
+        for(int j=0;j<i;j++)
+        {
+            if(cons[i]==""|| cons[j]=="") continue;
+            if(cons[i].size()>=cons[j].size()&&!(cons[i].compare(0,cons[j].size(),cons[j])))
+               cons[i]="";
+            else if(cons[i].size()<cons[j].size()&&!(cons[j].compare(0,cons[i].size(),cons[i])))
+               cons[j]="";   
+        }
+    }
+    for(auto i:cons)
+    {
+        if(!i.empty())
+        {
+            ncons.push_back(i);
+        }
+    }
+    for (int k = 0; k < n; k++) number *= 10;
+    for(auto i:ncons)
+    {
+        int s=n-i.size();
+        long long num=1;
+        for(int k=0;k<s;k++)
+        {
+            num *=10; 
+        }
+        count+=num;
+       
+    }
+    cout<<number-count;
+    return 0;
+}
+//通过这道题我意识到所以当下次数十分大时，我应该避免使用int以及double，以及pow等返回double以及int类型的函数
