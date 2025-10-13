@@ -45,3 +45,5 @@ int main()
     return 0;
 }
 //通过这道题我意识到所以当下次数十分大时，我应该避免使用int以及double，以及pow等返回double以及int类型的函数
+//链接：https://ac.nowcoder.com/acm/problem/21297
+来源：牛客网
