@@ -1,0 +1,80 @@
+题目描述 
+一家神秘餐馆准备开放N天，牛牛 和 牛妹听到这个消息后，准备尽可能多的一起去吃午饭
+
+餐馆有M道菜，牛牛和牛妹每次来只允许点一道菜，如果在第i天买了第j道菜
+那么第i+7天也只能买第j道菜
+第i天第j道菜的价格为price[i][j]
+'0'-'9'代表0-9美元
+'A'-'Z'代表10-35美元
+'a'-'z'代表36-61美元
+
+牛牛和牛妹一共只有budget美元，请问他们最多可以吃几天的午饭
+#include<iostream>
+#include<algorithm>
+using namespace std;
+int makenumber(char a){
+    if('0'<=a&&a<='9') return a-'0';   
+    else if('A'<=a&&a<='Z')
+        return a-'A'+10;
+    else if('a'<=a&&a<='z')
+        return a-'a'+36;
+    return 0;//保底
+}
+int Cheap(char a[], int m,int &dishIndex){
+    int price[50];
+    for(int c=0;c<m;c++)
+    {
+        price[c]=makenumber(a[c]);
+    }
+    int *minPos = min_element(price, price + m);
+    dishIndex = minPos - price;  
+    return *minPos;   
+}
+int main()
+{
+    int n,m,budget;
+    int k=0;
+    cin>>n>>m>>budget;
+    char a[50][50];
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<m;j++)
+        {
+            cin>>a[i][j];
+        }
+    }
+    int week[7];
+    int num[7]={0};
+    for(int i=0;i<7&&i<n;i++)
+    {
+       week[i]=Cheap(a[i],m,num[i]);  
+    }
+    for(int i=0;i<7&&i<n;i++)
+    {
+        if(budget>=week[i]) 
+        {
+            budget-=week[i];
+            k++;
+        }       
+        else 
+        {
+            cout<<k;
+            return 0;
+        }
+    }
+    int shu=7;
+    while(shu<n)
+    {
+        int s=makenumber(a[shu][num[k%7]]);
+        if(budget<s)break;
+        else 
+        {
+            budget-=s;
+            k++;
+            shu++;
+        }
+    }        
+    cout<<k;
+    return 0;
+}
+这道题在编写后面的代码时我对于自变量名称的设置太过随意，所以到最后不知道是否存在，以后要改掉
