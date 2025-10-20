@@ -1,0 +1,56 @@
+有n只猴子，第i只猴子每过xi小时会连续吃香蕉yi小时。猴子从第二次开始每次休息结束后这只猴子连续吃香蕉的时间会增加zi小时。
+
+给定n只猴子，每一只的xi，yi，zi，以及时间t，求在前t小时中，所有猴子共吃了多少小时。
+ 对于一只猴子来说是这样的：
+从第1小时开始： 
+休息xi小时( 1 -> xi ) 
+吃yi小时( xi + 1 -> xi + yi )
+休息xi小时
+吃yi+zi小时
+休息xi小时
+吃yi+zi+zi小时
+......
+输入描述:
+#include<iostream>
+using namespace std;
+int n,t;
+long long sum=0;
+void Time(int a,int b,int c)
+{ 
+        int T=t;
+        int eattime=0;
+        while(1)
+        {
+           if(T<a) break;
+            else 
+            {
+                T-=a; 
+            }
+            if(T>b)
+            {
+                eattime+=b;
+                T-=b;
+            }
+            else 
+            {
+                eattime+=T;
+                break;
+            }
+            b+=c;
+        }
+       
+        sum+=eattime; 
+}
+int main()
+{
+    cin>>n>>t;
+    int a,b,c;
+    for(int i=0;i<n;i++)
+    {
+       cin>>a>>b>>c;
+        Time(a,b,c);
+    }
+    cout<<sum;
+    return 0;
+}
+目前出现过超时的现象，会在一段时间内找出问题并加以改正的
