@@ -1,0 +1,44 @@
+已知多项式方程：
+a0+a1x+a2x2+...+anxn=0
+求这个方程在[1, m]内的整数解（n和m均为正整数）。
+
+
+输入描述:
+第一行包含2个整数n、m，每两个整数之间用一个空格隔开。
+接下来的n+1行每行包含一个整数，依次为a0,a1,a2,……,an。
+输出描述:
+第一行输出方程在[1, m]内的整数解的个数。
+接下来每行一个整数，按照从小到大的顺序依次输出方程在[1, m]内的一个整数解。
+#include <iostream>
+using namespace std;
+
+int main() {
+    int n, m;
+    cin >> n >> m;
+    long long xishu[100];
+    
+    for(int i = 0; i <= n; i++) {
+        cin >> xishu[i];
+    }
+    
+    int count = 0;
+    int result[1000000];  
+    
+    for(int x = 1; x <= m; x++) {
+        long long sum = xishu[n];
+        for(int i = n - 1; i >= 0; i--) {
+            sum = sum * x + xishu[i];  
+        }
+        
+        if(sum == 0) {
+            result[count++] = x;
+        }
+    }
+    
+    cout << count << endl;
+    for(int i = 0; i < count; i++) {
+        cout << result[i] << endl;
+    }
+    
+    return 0;
+}
